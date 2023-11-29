@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MXB4EHR8X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-5MXB4EHR8X');
+    </script>
+    <title>趣味から年収を推定</title>
+    <script>
+        const hobbiesIncomeData = {
+            "華道": "収入なし",
+            "茶道": "収入なし",
+            "園芸・庭いじり・ガーデニング": "収入なし",
+            "陶芸・工芸": "収入なし",
+            "邦楽(民謡、日本古来の音楽を含む)": "50万円未満",
+            "コーラス・声楽": "50万円未満",
+            "洋舞・社交ダンス": "50万円未満",
+            "書道": "50万円未満",
+            "絵画・彫刻の制作": "50万円未満",
+            "詩・和歌・俳句・小説などの創作": "50万円未満",
+            "和裁・洋裁": "50～99万円",
+            "編み物・手芸": "50～99万円",
+            "趣味としての料理・菓子作り": "50～99万円",
+            "映画館での映画鑑賞": "250～299万円",
+            "コンサートなどによるポピュラー音楽・歌謡曲鑑賞": "250～299万円",
+            "カラオケ": "250～299万円",
+            "邦舞・おどり": "250～299万円",
+            "パチンコ": "400～499万円",
+            "マンガを読む": "500～599万円",
+            "スマートフォン・家庭用ゲーム機などによるゲーム": "500～599万円",
+            "遊園地、動植物園、水族館などの見物": "500～599万円",
+            "日曜大工": "900～999万円",
+            "将棋": "900～999万円",
+            "キャンプ": "900～999万円",
+            "スポーツ観覧・観戦(テレビ・スマートフォン・パソコンなどは除く)": "1000～1499万円",
+            "映画館以外での映画鑑賞（テレビ・DVD・パソコンなど）": "1000～1499万円",
+            "ＣＤ・スマートフォンなどによる音楽鑑賞": "1000～1499万円",
+            "楽器の演奏": "1000～1499万円",
+            "写真の撮影・プリント": "1000～1499万円",
+            "囲碁": "1000～1499万円",
+            "美術鑑賞(テレビ・スマートフォン・パソコンなどは除く)": "1500万円以上",
+            "演芸・演劇・舞踊鑑賞(テレビ・スマートフォン・パソコンなどは除く)": "1500万円以上",
+            "コンサートなどによるクラシック音楽鑑賞": "1500万円以上",
+            "趣味としての読書（マンガを除く）": "1500万円以上",
+            "その他": "1500万円以上"
+        };
+
+        function convertIncomeToNumber(income) {
+            if (income === "収入なし") return 0;
+            if (income === "1500万円以上") return 1500;
+            const match = income.match(/(\d+)(～\d+)?万円/);
+            if (match) return parseInt(match[1], 10);
+            return 0;
+        }
+
+        function calculateEstimatedIncome() {
+            const hobby1 = document.getElementById('hobby1').value;
+            const hobby2 = document.getElementById('hobby2').value;
+            const hobby3 = document.getElementById('hobby3').value;
+
+            const income1 = convertIncomeToNumber(hobbiesIncomeData[hobby1]);
+            const income2 = convertIncomeToNumber(hobbiesIncomeData[hobby2]);
+            const income3 = convertIncomeToNumber(hobbiesIncomeData[hobby3]);
+
+            const estimatedIncome = Math.round((income1 + income2 + income3) / 3);
+            document.getElementById('result').textContent = `あなたの推定年収は${estimatedIncome}万円です`;
+        }
+
+        function addHobbyOptions() {
+            const selectElements = [document.getElementById('hobby1'), document.getElementById('hobby2'), document.getElementById('hobby3')];
+            for (const hobby in hobbiesIncomeData) {
+                selectElements.forEach(selectElement => {
+                    const option = document.createElement('option');
+                    option.value = hobby;
+                    option.textContent = hobby;
+                    selectElement.appendChild(option);
+                });
+            }
+        }
+
+        window.onload = addHobbyOptions;
+    </script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>趣味から年収を推定</h1>
+    <p>あなたの趣味を以下から3つ選びなさい</p>
+    <div class="select-container">
+        <select id="hobby1"></select>
+        <select id="hobby2"></select>
+        <select id="hobby3"></select>
+    </div>
+    <button onclick="calculateEstimatedIncome()">判定</button>
+    <p id="result"></p>
+
+    <style>
+        .select-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+@media (max-width: 600px) {
+    .select-container {
+        flex-direction: column;
+    }
+    select, button {
+        width: 100%;
+    }
+}
+</style>
+</body>
+
+</html>
